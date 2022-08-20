@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Game.css';
-import { unsafeAllowMultipleStdlibs, loadStdlib, ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
+// import { unsafeAllowMultipleStdlibs, loadStdlib, ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
 
-const stdlib = loadStdlib(process.env);
+// const stdlib = loadStdlib(process.env);
 
 const TicTacToe = () => {
 
@@ -10,10 +10,10 @@ const TicTacToe = () => {
     const [cells, setCells] = useState(Array(9).fill(null));
     const [winner, setWinner] = useState(null);
     const [isDraw, setDraw] = useState(false);
-    const [setView, getSetView] = useState('player1')
+    const [setView, getSetView] = useState('player1');
     const [firstPlayer, setFirstPlayer] = useState('');
     const [secondPlayer, setSecondPlayer] = useState('');
-    const [wager, setWager] = useState();
+    const [wager, setWager] = useState('');
 
     // const acc =  stdlib.getDefaultAccount();
     // console.log(acc, 'see account')
@@ -21,9 +21,9 @@ const TicTacToe = () => {
     useEffect(() => {
         //stdlib.setWalletFallback({make : () => 'ALGO'});
         // await stdlib.getProvider();
-        stdlib.setWalletFallback(stdlib.walletFallback({
-            providerEnv: 'TestNet', MyAlgoConnect
-        }));
+        // stdlib.setWalletFallback(stdlib.walletFallback({
+        //     providerEnv: 'TestNet', MyAlgoConnect
+        // }));
     }, [])
 
 
