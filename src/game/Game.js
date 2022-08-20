@@ -11,8 +11,8 @@ const TicTacToe = () => {
     const [winner, setWinner] = useState(null);
     const [isDraw, setDraw] = useState(false);
     const [setView, getSetView] = useState('player1')
-    const [firstPlayer, setFirstPlayer] = useState();
-    const [secondPlayer, setSecondPlayer] = useState();
+    const [firstPlayer, setFirstPlayer] = useState('');
+    const [secondPlayer, setSecondPlayer] = useState('');
     const [wager, setWager] = useState();
 
     // const acc =  stdlib.getDefaultAccount();
