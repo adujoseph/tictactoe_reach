@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Game.css';
+import { unsafeAllowMultipleStdlibs, loadStdlib, ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
+
+const stdlib = loadStdlib(process.env);
 
 const TicTacToe = () => {
+
     const [turn, setTurn] = useState('x');
     const [cells, setCells] = useState(Array(9).fill(null));
     const [winner, setWinner] = useState(null);
@@ -11,6 +15,19 @@ const TicTacToe = () => {
     const [secondPlayer, setSecondPlayer] = useState();
     const [wager, setWager] = useState();
 
+    // const acc =  stdlib.getDefaultAccount();
+    // console.log(acc, 'see account')
+
+    useEffect(() => {
+        //stdlib.setWalletFallback({make : () => 'ALGO'});
+        // await stdlib.getProvider();
+        stdlib.setWalletFallback(stdlib.walletFallback({
+            providerEnv: 'TestNet', MyAlgoConnect
+        }));
+    }, [])
+
+
+    // console.log(stdlib, 'something');
 
     const checkDraw = () => {
         const checkfill = cells.filter(f => f != null);
@@ -53,7 +70,7 @@ const TicTacToe = () => {
                 ) {
                     setWinner(squares[pattern[0]]);
                 } else {
-                
+
                 }
             });
         }
@@ -88,7 +105,7 @@ const TicTacToe = () => {
         setCells(Array(9).fill(null));
         setDraw(false)
         setWinner(null);
-       
+
     };
 
     const Cell = ({ num }) => {
@@ -108,8 +125,8 @@ const TicTacToe = () => {
             <div>
                 <h1>Welcome to Player One</h1>
                 <p>Pls Introduce yourself</p>
-                <input name="name" placeholder='Enter your name' value={firstPlayer} />
-                <input name="" placeholder='Enter wager' value={wager} />
+                <input name="name" placeholder='Enter your name' type='text' onChange={(e) => setFirstPlayer(e.target.value)} value={firstPlayer} />
+                <input name="wager" placeholder='Enter wager' type='number' onChange={(e) => setWager(e.target.value)} value={wager} />
                 <button onClick={() => handlePlayer("1")}>Access Game</button>
             </div>
         )
@@ -120,8 +137,8 @@ const TicTacToe = () => {
             <div>
                 <h1>Welcome to Player Two</h1>
                 <p>Pls Introduce yourself</p>
-                <input name="name" placeholder='Enter your name' />
-                <input name="" placeholder='Enter wager' />
+                <input name="name" placeholder='Enter your name' type='text' onChange={(e) => setSecondPlayer(e.target.value)}  value={secondPlayer}/>
+                <input name="wager" placeholder='Enter wager'type='number' onChange={(e) => setWager(e.target.value)}  value={wager} />
                 <button onClick={() => handlePlayer("2")}>Access Game</button>
             </div>
         )
@@ -131,7 +148,7 @@ const TicTacToe = () => {
         return (
             <div className='container'>
                 <table>
-                    Turn: {turn}
+                    Turn: {`${turn === 'x' ? firstPlayer : secondPlayer}`}
                     <tbody>
                         <tr>
                             <Cell num={0} />
@@ -158,7 +175,7 @@ const TicTacToe = () => {
                 )}
                 {winner && (
                     <>
-                        <p>{winner} is the winner!</p>
+                        <p>{`${winner === 'x' ? firstPlayer : secondPlayer} is the winner`}</p>
                         <button onClick={() => handleRestart()}>Play Again</button>
                     </>
                 )}
